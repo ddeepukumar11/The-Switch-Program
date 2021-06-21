@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int m = scn.nextInt();
+        
+        int[][] arr = new int[n][m];
+        for(int i = 0 ; i < n; i++){
+            for(int j = 0 ; j < m; j++){
+                arr[i][j] = scn.nextInt();
+            }
+        }
+        printSpiral(arr, n , m);
+        
+    }
+    
+    public static void printSpiral(int[][] arr, int n, int m){
+        int rmin = 0;
+        int rmax = n - 1;
+        int cmin = 0;
+        int cmax = m - 1;
+        int tne = arr.length * arr[0].length;
+        int count = 0;
+        
+        while(count < tne){
+            //left boundary
+            for(int row = rmin; row <= rmax && count < tne; row++){
+                System.out.println(arr[row][cmin]);
+                count++;
+            }
+            cmin++;
+            //botoom boundary
+            for(int col = cmin; col <= cmax&& count < tne; col++){
+                System.out.println(arr[rmax][col]);
+                count++;
+            }
+            rmax--;
+            //right boundary
+            for(int row = rmax; row >= rmin && count < tne; row--){
+                System.out.println(arr[row][cmax]);
+                count++;
+            }
+            cmax--;
+            ///top boundary
+            for(int col = cmax; col >= cmin && count < tne; col--){
+                System.out.println(arr[rmin][col]);
+                count++;
+            }
+            rmin++;
+        }
+        
+    }
+
+}

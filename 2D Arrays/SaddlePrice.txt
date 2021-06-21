@@ -1,0 +1,50 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+       int n = scn.nextInt();
+       
+       int[][] arr = new int[n][n];
+       
+       for(int i = 0 ; i < n; i++){
+           for(int j = 0 ; j < n; j++){
+               arr[i][j] = scn.nextInt();
+           }
+       }
+       
+       
+       
+       for(int i = 0 ; i < n; i++){
+           //1. find min element and its col no. of every row
+           int min = arr[i][0];
+           int colno = 0;
+           
+           for(int col = 1;col < n; col++){
+               if(arr[i][col] < min){
+                   min = arr[i][col];
+                   colno = col;
+               }
+           }
+           
+           //2. verfication -> check if any number is greater than the min in its column
+           boolean vc = true;
+           for(int row = 0; row < n; row++){
+               if(arr[row][colno] > min){
+                   vc = false;
+                   break;
+               }
+           }
+           
+           if(vc == true){
+               System.out.println(min);
+               return;
+           }
+       }
+       
+       System.out.println("Invalid input");
+    }
+
+}
