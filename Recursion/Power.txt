@@ -1,0 +1,45 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        // write your code here
+    }
+
+    public static int power(int x, int n){
+        if(n == 0){
+            return 1;
+        }
+        
+        int xpnm1 = power(x, n - 1);
+        int xpn = x * xpnm1;
+        return xpn;
+    }
+    
+    public static int power2(int x, int n){
+        if(n == 0){
+            return 1;
+        }
+        
+        int xpn = power2(x,n / 2) * power2(x, n / 2);
+        if(n % 2 != 0){
+            xpn *= x;
+        }
+        return xpn;
+    }
+    
+    public static int power3(int x, int n){
+        if(n == 0){
+            return 1;
+        }
+        
+        int xpn2 = power2(x,n / 2);
+        int xpn = xpn2 * xpn2;
+        if(n % 2 != 0){
+            xpn *= x;
+        }
+        return xpn;
+    }
+
+}

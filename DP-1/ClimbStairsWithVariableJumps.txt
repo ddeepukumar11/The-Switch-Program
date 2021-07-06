@@ -1,0 +1,56 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0 ; i < n; i++){
+            arr[i] = scn.nextInt();
+        }
+        // int[] dp = new int[n];
+        System.out.println(cs2Tab(arr));
+    }
+    
+    public static int cs2(int[] arr, int idx, int[] dp){
+        if(idx == arr.length){
+            return 1;
+        }
+        
+        if(idx > arr.length){
+            return 0;
+        }
+        
+        if(dp[idx] != 0){
+            return dp[idx];
+        }
+        
+        int ans = 0;
+        for(int jump = 1; jump <= arr[idx]; jump++){
+            ans += cs2(arr, idx + jump, dp);
+        }
+        dp[idx] = ans;
+        return ans;
+    }
+    
+    public static int cs2Tab(int[] arr){
+        int[] dp = new int[arr.length + 1];
+        
+        dp[dp.length - 1] = 1; //destn -> destn 
+        
+        for(int i = dp.length - 2; i >= 0; i--){
+            int ans = 0;
+            for(int jump = 1; jump <= arr[i]; jump++){
+                if(i + jump < dp.length){
+                    ans += dp[i + jump];
+                }
+            }
+            dp[i] = ans;
+        }
+        
+        return dp[0];
+    }
+
+}

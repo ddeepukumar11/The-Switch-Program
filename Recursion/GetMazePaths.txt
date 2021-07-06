@@ -1,0 +1,48 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int m = scn.nextInt();
+        
+        System.out.println(getMazePaths(0, 0, n - 1, m - 1));
+    }
+
+    
+    public static ArrayList<String> getMazePaths(int sr, int sc, int dr, int dc) {
+        //positive base case
+        if(sr == dr && sc == dc){
+            ArrayList<String> bans = new ArrayList<>();
+            bans.add("");
+            return bans;
+        }
+        
+        //negative base case -> can't reach destination
+        // if(sr > dr || sc > dc){
+        //     return new ArrayList<>();
+        // }
+        
+        
+        ArrayList<String> mr = new ArrayList<>();
+        
+        if(sc + 1 <= dc){
+            ArrayList<String> rr1 = getMazePaths(sr, sc + 1, dr, dc);
+            for(String s : rr1){
+                mr.add("h" + s);
+            }
+        }
+        
+        if(sr + 1 <= dr){
+            ArrayList<String> rr2 = getMazePaths(sr + 1, sc, dr, dc);
+            for(String s : rr2){
+                mr.add("v" + s);
+            }
+        }
+        
+        return mr;
+    }
+
+}
