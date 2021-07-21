@@ -1,0 +1,55 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0 ; i < n; i++){
+            arr[i] = scn.nextInt();
+        }
+        
+        // System.out.println(lis(arr, 0, -1));
+        
+        
+        //Find lis ending at every ith index
+        //Max of these will be your answer
+        int ans = 0;
+        for(int i = 0 ; i < arr.length; i++){
+            ans = Math.max(ans, lis2(arr, i));
+        }
+        
+        System.out.println(ans);
+    }
+    
+    public static int lis2(int[] arr, int idx){
+
+        int max = 0;
+       for(int i = idx - 1; i >= 0; i--){
+           if(arr[i] < arr[idx]){
+               max = Math.max(max, lis2(arr, i));
+           }
+       }
+       
+       return 1 + max;
+    }
+    
+    
+    public static int lis(int[] arr, int idx, int ilse){
+        if(idx == arr.length){
+            return 0;
+        }
+        
+        int f1 = 0 + lis(arr, idx + 1, ilse);
+        int f2 = 0;
+        if(ilse == -1 || arr[idx] > arr[ilse]){
+            f2 = 1 + lis(arr, idx + 1, idx);
+        }
+        int ans = Math.max(f1, f2);
+        return ans;
+    }
+    
+
+}

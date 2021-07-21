@@ -1,0 +1,44 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        
+        int[] arr = new int[n];
+        for(int i = 0 ; i < n; i++){
+            arr[i] = scn.nextInt();
+        }
+        
+        System.out.println(maxProfit2(arr));
+    }
+    
+    public static int maxProfit2(int[] arr){
+        int[] buy = new int[arr.length];
+        int[] sell = new int[arr.length];
+        
+        buy[0] = -arr[0];
+        sell[0] = 0;
+        
+        for(int i = 1; i < arr.length; i++){
+            buy[i] = Math.max(buy[i - 1], sell[i - 1] - arr[i]);
+            sell[i] = Math.max(sell[i - 1], buy[i - 1] + arr[i]);
+        }
+        
+        return sell[arr.length - 1];
+    }
+    
+    public static int maxProfit1(int[] arr){
+        int profit = 0;
+        
+        for(int i = 0 ; i < arr.length - 1; i++){
+            if(arr[i + 1] > arr[i]){
+                profit += arr[i + 1] - arr[i];
+            }
+        }
+        return profit;
+    }
+
+}

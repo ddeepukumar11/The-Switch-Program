@@ -1,0 +1,52 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] prices = new int[n];
+        for(int i = 0 ; i < n; i++){
+            prices[i] = scn.nextInt();
+        }
+        
+        int[] wts = new int[n];
+        for(int i = 0 ; i < n; i++){
+            wts[i] = scn.nextInt();
+        }
+        
+        int cap = scn.nextInt();
+        System.out.println(knapSack(prices, wts, 0, cap));
+    }
+    
+    public static int knapSack(int[] prices, int[] wts, int idx, int cap){
+        if(cap < 0){
+            return Integer.MIN_VALUE;
+        }
+        
+        if(idx == prices.length){
+            return 0;
+        }
+        
+        int f1 = 0 + knapSack(prices, wts, idx + 1,cap);
+        int f2 = prices[idx] + knapSack(prices, wts, idx + 1, cap - wts[idx]);
+        int ans = Math.max(f1, f2);
+        return ans;
+    }
+    
+    public static int knapSack01(int[] prices, int[] wts, int cap){
+        int[][] dp = new int[prices.length + 1][cap + 1];
+        
+        for(int i = 1; i < dp.length; i++){
+            for(int j = 1; j < dp[0].length; j++){
+                dp[i][j] = dp[i - 1][j];
+                if(j - wts[i - 1] >= 0){
+                   dp[i][j] = Math.max(0 + dp[i - 1][j], prices[i - 1] + dp[i - 1][j - wts[i - 1]]); 
+                }
+            }
+        }
+        
+        return dp[dp.length - 1][dp[0].length - 1];
+    }
+}

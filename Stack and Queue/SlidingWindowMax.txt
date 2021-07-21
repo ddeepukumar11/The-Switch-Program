@@ -1,0 +1,68 @@
+import java.io.*;
+import java.util.*;
+
+public class Main{
+  
+
+public static void main(String[] args) throws Exception {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+    int n = Integer.parseInt(br.readLine());
+    int[] a = new int[n];
+    for(int i = 0; i < n; i++){
+       a[i] = Integer.parseInt(br.readLine());
+    }
+    int k = Integer.parseInt(br.readLine());
+
+    // int[] ngr = new int[a.length];
+    // Stack<Integer> st = new Stack<>();
+    
+    // for(int i = a.length - 1; i >= 0; i--){
+    //     //pop all smaller elements
+    //     while(st.size() > 0 && a[st.peek()] < a[i]){
+    //         st.pop();
+    //     }
+        
+    //     //update your ans
+    //     if(st.size() == 0){
+    //         ngr[i] = a.length;
+    //     }else{
+    //         ngr[i] = st.peek();
+    //     }
+        
+    //     //push current index
+    //     st.push(i);
+    // }
+    
+    // for(int i = 0, j = 0; i <= a.length - k; i++){
+    //     if(j < i){
+    //         j = i;
+    //     }
+    //     while(ngr[j] < i + k){
+    //         j = ngr[j];
+    //     }
+        
+    //     System.out.println(a[j]);
+    // }
+    swm(a, k);
+ }
+ 
+ public static void swm(int[] arr, int k){
+     Deque<Integer> dq = new ArrayDeque<>();
+     
+     for(int i = 0; i < arr.length; i++){
+         while(dq.size() > 0 && arr[dq.getLast()] < arr[i]){
+             dq.removeLast();
+         }
+         dq.addLast(i);
+         
+         if(dq.peek() <= i - k){
+             dq.removeFirst();
+         }
+         
+         if(i >= k - 1){
+            System.out.println(arr[dq.peek()]);
+         }
+     }
+ }
+}

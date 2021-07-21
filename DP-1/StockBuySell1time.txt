@@ -1,0 +1,25 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        
+        int[] arr = new int[n];
+        for(int i = 0 ; i < n; i++){
+            arr[i] = scn.nextInt();
+        }
+        
+        int maxsf = arr[arr.length - 1];
+        int maxProfit = 0;
+        
+        for(int i = arr.length - 2; i >= 0; i--){
+            maxsf = Math.max(maxsf, arr[i]);
+            maxProfit = Math.max(maxProfit, maxsf - arr[i]);
+        }
+        System.out.println(maxProfit);
+    }
+
+}

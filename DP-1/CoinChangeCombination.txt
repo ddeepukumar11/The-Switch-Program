@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] arr = new int[n];
+        for(int i = 0 ; i < n ;i++){
+            arr[i] = scn.nextInt();
+        }
+        int amount = scn.nextInt();
+        System.out.println(cccR(arr ,0 , amount));
+    }
+    
+    public static int cccR(int[] denoms, int idx, int amount){
+        if(amount == 0){
+            return 1;
+        }
+        
+        if(amount < 0 || idx == denoms.length){
+            return 0;
+        }
+        
+        int f1 = cccR(denoms, idx + 1, amount);
+        int f2 = cccR(denoms, idx, amount - denoms[idx]);
+        int ans = f1 + f2;
+        return ans;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public static int ccc(int[] denoms, int amount){
+        int[] dp = new int[amount + 1];
+        dp[0] = 1;;
+        
+        for(int i = 0 ; i < denoms.length; i++){
+            int coin = denoms[i];
+            for(int j = coin ; j < dp.length; j++){
+                dp[j] += dp[j - coin];
+            }
+        }
+        
+        return dp[amount];
+    }
+}
